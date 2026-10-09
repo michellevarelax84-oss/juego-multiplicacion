@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <radialGradient id="astroBg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#312E81"/>
+      <stop offset="100%" stop-color="#1E1B4B"/>
+    </radialGradient>
+    <linearGradient id="visorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="60%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#78350F"/>
+    </linearGradient>
+  </defs>
+  <!-- Fondo espacial -->
+  <circle cx="100" cy="100" r="95" fill="url(#astroBg)" stroke="#818CF8" stroke-width="6"/>
+  <!-- Estrellitas de fondo -->
+  <circle cx="40" cy="40" r="2" fill="#FFF"/>
+  <circle cx="160" cy="50" r="3" fill="#FDE047"/>
+  <circle cx="35" cy="150" r="2.5" fill="#FFF"/>
+  <circle cx="165" cy="140" r="2" fill="#FFF"/>
+
+  <!-- Traje / Cuello -->
+  <ellipse cx="100" cy="170" rx="65" ry="35" fill="#F8FAFC" stroke="#94A3B8" stroke-width="5"/>
+  <rect x="75" y="160" width="50" height="20" rx="5" fill="#3B82F6"/>
+
+  <!-- Casco espacial -->
+  <circle cx="100" cy="95" r="62" fill="#F8FAFC" stroke="#94A3B8" stroke-width="5"/>
+
+  <!-- Auriculares laterales -->
+  <rect x="30" y="85" width="12" height="25" rx="6" fill="#EF4444"/>
+  <rect x="158" y="85" width="12" height="25" rx="6" fill="#EF4444"/>
+
+  <!-- Visor dorado -->
+  <ellipse cx="100" cy="95" rx="46" ry="36" fill="url(#visorGrad)" stroke="#1E293B" stroke-width="4"/>
+  <!-- Brillo del visor -->
+  <path d="M 75 75 Q 100 68 125 75 Q 120 85 75 80 Z" fill="#FEF08A" opacity="0.7"/>
+
+  <!-- Emoticono carita amigable reflejada -->
+  <circle cx="85" cy="98" r="4" fill="#78350F"/>
+  <circle cx="115" cy="98" r="4" fill="#78350F"/>
+  <path d="M 90 108 Q 100 118 110 108" stroke="#78350F" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>

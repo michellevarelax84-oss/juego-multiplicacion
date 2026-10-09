@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <radialGradient id="dinoBg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#DCFCE7"/>
+      <stop offset="100%" stop-color="#4ADE80"/>
+    </radialGradient>
+  </defs>
+  <!-- Fondo circular -->
+  <circle cx="100" cy="100" r="95" fill="url(#dinoBg)" stroke="#16A34A" stroke-width="6"/>
+
+  <!-- Cresta de espinas en la nuca -->
+  <polygon points="55,60 40,45 60,45" fill="#EAB308"/>
+  <polygon points="45,90 30,75 50,75" fill="#EAB308"/>
+  <polygon points="40,120 25,105 45,105" fill="#EAB308"/>
+
+  <!-- Cabeza y hocico de dinosaurio amigable -->
+  <path d="M 60 70 C 60 45 130 45 140 70 C 155 80 165 95 160 120 C 155 145 125 150 100 150 C 70 150 60 115 60 70 Z" fill="#22C55E" stroke="#15803D" stroke-width="4"/>
+
+  <!-- Gorra deportiva roja volteada -->
+  <path d="M 70 55 C 70 35 125 35 135 55 Z" fill="#EF4444"/>
+  <path d="M 125 55 L 165 52 L 160 62 L 125 58 Z" fill="#DC2626"/>
+  <circle cx="100" cy="38" r="4" fill="#FEF08A"/>
+
+  <!-- Ojo salton y simpatico -->
+  <circle cx="105" cy="78" r="16" fill="#FFF" stroke="#15803D" stroke-width="3"/>
+  <circle cx="110" cy="78" r="8" fill="#14532D"/>
+  <circle cx="113" cy="75" r="3" fill="#FFF"/>
+
+  <!-- Orificio nasal -->
+  <circle cx="145" cy="105" r="4" fill="#15803D"/>
+
+  <!-- Sonrisa con diente alegre -->
+  <path d="M 115 125 Q 135 135 152 118" stroke="#14532D" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <polygon points="128,126 134,136 140,127" fill="#FFF"/>
+
+  <!-- Mejilla sonrojada -->
+  <circle cx="100" cy="115" r="8" fill="#F472B6" opacity="0.5"/>
+</svg>

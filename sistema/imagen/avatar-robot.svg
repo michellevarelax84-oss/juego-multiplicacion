@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <radialGradient id="botBg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#BAE6FD"/>
+      <stop offset="100%" stop-color="#38BDF8"/>
+    </radialGradient>
+  </defs>
+  <!-- Fondo circular -->
+  <circle cx="100" cy="100" r="95" fill="url(#botBg)" stroke="#0284C7" stroke-width="6"/>
+
+  <!-- Antena -->
+  <line x1="100" y1="45" x2="100" y2="20" stroke="#475569" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="100" cy="18" r="10" fill="#EF4444"/>
+
+  <!-- Orejas / Tornillos -->
+  <rect x="35" y="80" width="12" height="30" rx="5" fill="#64748B"/>
+  <rect x="153" y="80" width="12" height="30" rx="5" fill="#64748B"/>
+
+  <!-- Cabeza Robot -->
+  <rect x="45" y="45" width="110" height="95" rx="22" fill="#E2E8F0" stroke="#475569" stroke-width="5"/>
+
+  <!-- Visor / Pantalla de ojos -->
+  <rect x="58" y="65" width="84" height="42" rx="12" fill="#0F172A"/>
+
+  <!-- Ojos LED amigables -->
+  <circle cx="80" cy="86" r="12" fill="#22C55E"/>
+  <circle cx="83" cy="83" r="4" fill="#DCFCE7"/>
+  <circle cx="120" cy="86" r="12" fill="#22C55E"/>
+  <circle cx="123" cy="83" r="4" fill="#DCFCE7"/>
+
+  <!-- Sonrisa de rejilla -->
+  <rect x="80" y="118" width="40" height="12" rx="6" fill="#64748B"/>
+  <line x1="88" y1="118" x2="88" y2="130" stroke="#CBD5E1" stroke-width="2"/>
+  <line x1="96" y1="118" x2="96" y2="130" stroke="#CBD5E1" stroke-width="2"/>
+  <line x1="104" y1="118" x2="104" y2="130" stroke="#CBD5E1" stroke-width="2"/>
+  <line x1="112" y1="118" x2="112" y2="130" stroke="#CBD5E1" stroke-width="2"/>
+
+  <!-- Cuello / Cuerpo asomando -->
+  <path d="M 65 145 L 135 145 L 145 185 L 55 185 Z" fill="#94A3B8" stroke="#475569" stroke-width="4"/>
+  <text x="100" y="172" font-family="monospace" font-weight="900" font-size="20" fill="#FACC15" text-anchor="middle">π</text>
+</svg>

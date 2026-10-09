@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <linearGradient id="ribbon1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="50%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </linearGradient>
+    <linearGradient id="ribbon2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#EF4444"/>
+      <stop offset="50%" stop-color="#F87171"/>
+      <stop offset="100%" stop-color="#DC2626"/>
+    </linearGradient>
+    <linearGradient id="coinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEF08A"/>
+      <stop offset="50%" stop-color="#FACC15"/>
+      <stop offset="100%" stop-color="#CA8A04"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Cintas colgantes -->
+  <polygon points="65,10 95,10 115,100 85,100" fill="url(#ribbon1)"/>
+  <polygon points="105,10 135,10 115,100 85,100" fill="url(#ribbon2)"/>
+  <polygon points="65,10 50,75 80,75" fill="#1D4ED8"/>
+  <polygon points="135,10 150,75 120,75" fill="#B91C1C"/>
+
+  <!-- Medalla circular exterior -->
+  <circle cx="100" cy="120" r="58" fill="url(#coinGrad)" stroke="#B45309" stroke-width="4"/>
+  <!-- Borde dentado o estrellado -->
+  <circle cx="100" cy="120" r="50" fill="none" stroke="#FEF9C3" stroke-width="3" stroke-dasharray="6 4"/>
+
+  <!-- Centro de la medalla -->
+  <circle cx="100" cy="120" r="42" fill="#F59E0B" stroke="#B45309" stroke-width="2"/>
+
+  <!-- Estrella dorada central -->
+  <polygon points="100,92 108,110 128,110 112,122 118,140 100,129 82,140 88,122 72,110 92,110" fill="#FEF08A" stroke="#CA8A04" stroke-width="1.5"/>
+</svg>

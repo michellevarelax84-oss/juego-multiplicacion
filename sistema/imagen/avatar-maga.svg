@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <radialGradient id="witchBg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F3E8FF"/>
+      <stop offset="100%" stop-color="#C084FC"/>
+    </radialGradient>
+  </defs>
+  <!-- Fondo circular -->
+  <circle cx="100" cy="100" r="95" fill="url(#witchBg)" stroke="#9333EA" stroke-width="6"/>
+
+  <!-- Pelo largo -->
+  <path d="M 45 105 C 40 150 55 175 65 180 L 135 180 C 145 175 160 150 155 105 Z" fill="#6B21A8"/>
+
+  <!-- Cabeza y rostro -->
+  <circle cx="100" cy="120" r="42" fill="#FDE047" opacity="0.4"/>
+  <ellipse cx="100" cy="125" rx="38" ry="36" fill="#FED7AA"/>
+
+  <!-- Ojos brillantes -->
+  <circle cx="85" cy="122" r="6" fill="#3B0764"/>
+  <circle cx="87" cy="120" r="2" fill="#FFF"/>
+  <circle cx="115" cy="122" r="6" fill="#3B0764"/>
+  <circle cx="117" cy="120" r="2" fill="#FFF"/>
+
+  <!-- Sonrisa dulce -->
+  <path d="M 93 138 Q 100 146 107 138" stroke="#9A3412" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Rubor mejillas -->
+  <circle cx="78" cy="132" r="6" fill="#F43F5E" opacity="0.4"/>
+  <circle cx="122" cy="132" r="6" fill="#F43F5E" opacity="0.4"/>
+
+  <!-- Sombrero de Maga -->
+  <!-- Ala ancha -->
+  <ellipse cx="100" cy="95" rx="68" ry="16" fill="#581C87"/>
+  <!-- Cono del sombrero -->
+  <path d="M 52 95 Q 100 40 145 20 Q 120 70 148 95 Z" fill="#7E22CE"/>
+  <!-- Cinta del sombrero dorada -->
+  <path d="M 58 92 Q 100 85 142 92 L 140 85 Q 100 78 60 85 Z" fill="#FACC15"/>
+  <polygon points="100,75 103,82 110,83 105,88 107,95 100,91 93,95 95,88 90,83 97,82" fill="#FEF08A"/>
+
+  <!-- Estrellitas mágicas flotando -->
+  <circle cx="35" cy="65" r="4" fill="#FDE047"/>
+  <circle cx="165" cy="70" r="5" fill="#FDE047"/>
+</svg>

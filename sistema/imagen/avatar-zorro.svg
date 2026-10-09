@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <radialGradient id="foxBg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FED7AA"/>
+      <stop offset="100%" stop-color="#FB923C"/>
+    </radialGradient>
+  </defs>
+  <!-- Fondo circular -->
+  <circle cx="100" cy="100" r="95" fill="url(#foxBg)" stroke="#EA580C" stroke-width="6"/>
+
+  <!-- Orejas -->
+  <polygon points="45,95 25,25 90,65" fill="#EA580C"/>
+  <polygon points="45,85 35,35 80,68" fill="#FEE2E2"/>
+  <polygon points="155,95 175,25 110,65" fill="#EA580C"/>
+  <polygon points="155,85 165,35 120,68" fill="#FEE2E2"/>
+
+  <!-- Cabeza Zorro -->
+  <polygon points="100,165 30,85 170,85" fill="#EA580C"/>
+  <!-- Mejillas blancas -->
+  <polygon points="100,165 30,85 70,120" fill="#FFF"/>
+  <polygon points="100,165 170,85 130,120" fill="#FFF"/>
+
+  <!-- Lentes de sabio -->
+  <circle cx="68" cy="98" r="22" fill="none" stroke="#1E293B" stroke-width="5"/>
+  <circle cx="132" cy="98" r="22" fill="none" stroke="#1E293B" stroke-width="5"/>
+  <line x1="90" y1="98" x2="110" y2="98" stroke="#1E293B" stroke-width="5"/>
+
+  <!-- Ojos alegres tras los lentes -->
+  <circle cx="68" cy="98" r="8" fill="#1E293B"/>
+  <circle cx="71" cy="95" r="3" fill="#FFF"/>
+  <circle cx="132" cy="98" r="8" fill="#1E293B"/>
+  <circle cx="135" cy="95" r="3" fill="#FFF"/>
+
+  <!-- Nariz de zorro -->
+  <ellipse cx="100" cy="155" rx="14" ry="9" fill="#1E293B"/>
+  <ellipse cx="102" cy="153" rx="4" ry="2" fill="#94A3B8"/>
+
+  <!-- Sonrisa pequeña -->
+  <path d="M 92 165 Q 100 172 108 165" stroke="#1E293B" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>

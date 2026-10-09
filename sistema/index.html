@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIS TABLAS - Aventura Matemática &amp; SIMCE 4° Básico</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="icon" type="image/svg+xml" href="imagen/logo.svg">
+</head>
+<body>
+
+  <!-- Canvas para confeti de celebraciones -->
+  <canvas id="canvas-confeti"></canvas>
+
+  <!-- Contenedor para notificaciones flotantes (XP / Logros) -->
+  <div id="notificaciones-toast"></div>
+
+  <!-- Modal para Logro Desbloqueado -->
+  <div id="modal-logro" class="modal-overlay">
+    <div class="modal-card anim-pop">
+      <div class="modal-icono-anim" id="modal-logro-icono">🏆</div>
+      <h2 class="text-dorado">¡NUEVO LOGRO DESBLOQUEADO!</h2>
+      <h3 id="modal-logro-nombre" class="my-2">Maestro del Doble</h3>
+      <p id="modal-logro-desc" class="text-muted">Dominaste la tabla del 2 con 3 estrellas.</p>
+      <button class="btn btn-primario btn-lg mt-4" onclick="App.cerrarModalLogro()">¡Genial, Gracias!</button>
+    </div>
+  </div>
+
+  <!-- Modal Universal de Mensajes, Alertas y Confirmaciones Animadas -->
+  <div id="modal-mensaje" class="modal-overlay">
+    <div class="modal-card modal-mensaje-card" id="modal-mensaje-card">
+      <div class="modal-icono-anim" id="modal-mensaje-icono">✨</div>
+      <h2 id="modal-mensaje-titulo">Mensaje</h2>
+      <div class="modal-mensaje-cuerpo" id="modal-mensaje-texto">Texto del mensaje</div>
+      <div class="modal-mensaje-botones" id="modal-mensaje-botones">
+        <button class="btn btn-primario btn-lg btn-modal-accion" onclick="Mensajes.cerrarModal()">¡Entendido!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       BARRA SUPERIOR (NAVBAR)
+       ========================================== -->
+  <header class="barra-superior">
+    <div class="nav-contenedor">
+      <!-- Marca y Logo -->
+      <div class="nav-marca" onclick="App.navegar('menu')" title="Ir al Menú Principal">
+        <img src="imagen/logo.svg" alt="MIS TABLAS" class="nav-logo-img">
+      </div>
+
+      <!-- Ficha del Estudiante -->
+      <div class="nav-estudiante">
+        <img src="imagen/avatar-zorro.svg" alt="Avatar" class="nav-avatar-img" id="top-avatar-img">
+        <div class="nav-info-usuario">
+          <span class="nav-nombre" id="top-estudiante-nombre">Estudiante</span>
+          <span class="nav-nivel-tag" id="top-nivel-titulo">Nivel 1: Aprendiz</span>
+        </div>
+      </div>
+
+      <!-- Estadísticas Rápidas -->
+      <div class="nav-estadisticas">
+        <div class="badge-stat badge-xp" title="Puntos de Experiencia (XP)">
+          <span>💎</span> <span id="top-puntos">50 XP</span>
+        </div>
+        <div class="badge-stat badge-stars" title="Estrellas ganadas">
+          <span>⭐</span> <span id="top-estrellas">0/27 ⭐</span>
+        </div>
+      </div>
+
+      <!-- Acciones de Cabecera -->
+      <div class="nav-acciones">
+        <button class="btn-icon-nav" id="btn-toggle-sonido" onclick="App.toggleAudio()" title="Activar/Desactivar Sonido">
+          🔊 <span>Sonido</span>
+        </button>
+        <button class="btn-icon-nav" onclick="App.salirAlLogin()" title="Cambiar de estudiante">
+          👤 <span>Cambiar</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       CONTENIDO PRINCIPAL (SPA)
+       ========================================== -->
+  <main class="main-contenido">
+
+    <!-- 1. PANTALLA: MENÚ PRINCIPAL (ETAPA 2) -->
+    <section id="pantalla-menu" class="pantalla-modulo activo">
+      <!-- Banner de bienvenida -->
+      <div class="hero-bienvenida">
+        <div class="hero-texto">
+          <h1 id="menu-saludo-nombre">¡Hola, Estudiante!</h1>
+          <p id="menu-saludo-sub">¿Listo para multiplicar tus superpoderes hoy?</p>
+        </div>
+        <div class="hero-progreso-card">
+          <div class="hero-progreso-header">
+            <span>Tu Progreso Global</span>
+            <span id="menu-progreso-pct">0% de Dominio</span>
+          </div>
+          <div class="barra-progreso-grande">
+            <div class="barra-progreso-fill" id="menu-progreso-bar" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarjetas del Menú Principal -->
+      <div class="grid-menu-principal">
+        <!-- 1. Aprender Tablas -->
+        <div class="tarjeta-menu-item anim-card" onclick="App.navegar('aprender')">
+          <span class="card-icono-flotante">📘</span>
+          <h3>Aprender Tablas</h3>
+          <p>Explora cómo funcionan los grupos y descubre los secretos del 2 al 10 con representaciones visuales.</p>
+          <div class="card-pie-accion">
+            <span>Explorar módulos</span>
+            <span>➜</span>
+          </div>
+        </div>
+
+        <!-- 2. Juegos y Desafíos -->
+        <div class="tarjeta-menu-item anim-card" onclick="App.navegar('juegos')">
+          <span class="card-icono-flotante">🎮</span>
+          <h3>Juegos y Desafíos</h3>
+          <p>8 modos de juego entretenidos: Memoria, Atrapa Burbujas, Detective, Desafío contra el tiempo y más.</p>
+          <div class="card-pie-accion">
+            <span>Ver juegos</span>
+            <span>➜</span>
+          </div>
+        </div>
+
+        <!-- 3. Mi Progreso y Puntaje -->
+        <div class="tarjeta-menu-item anim-card" onclick="App.navegar('progreso')">
+          <span class="card-icono-flotante">📊</span>
+          <h3>Mi Progreso</h3>
+          <p>Revisa tus estrellas por cada tabla, puntos acumulados y el historial de tus ensayos.</p>
+          <div class="card-pie-accion">
+            <span>Ver estadísticas</span>
+            <span>➜</span>
+          </div>
+        </div>
+
+        <!-- 4. Logros y Recompensas -->
+        <div class="tarjeta-menu-item anim-card" onclick="App.navegar('logros')">
+          <span class="card-icono-flotante">🏆</span>
+          <h3>Logros y Medallas</h3>
+          <p>Desbloquea insignias especiales completando misiones y superando desafíos matemáticos.</p>
+          <div class="card-pie-accion">
+            <span>Ver vitrina</span>
+            <span>➜</span>
+          </div>
+        </div>
+
+        <!-- 5. Ensayo Matemático SIMCE -->
+        <div class="tarjeta-menu-item card-simce-destacada anim-card" id="card-menu-simce" onclick="App.navegar('simce')">
+          <span class="card-icono-flotante">📝</span>
+          <div class="d-flex justify-between align-center">
+            <h3>Ensayo SIMCE</h3>
+            <span class="badge-estado badge-desbloqueado" id="menu-badge-simce">¡Habilitado!</span>
+          </div>
+          <p>10 situaciones matemáticas cotidianas tipo SIMCE 4° Básico con retroalimentación paso a paso.</p>
+          <div class="card-pie-accion">
+            <span>Rendir Ensayo Oficial</span>
+            <span>➜</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PANTALLA: APRENDER TABLAS (LISTA DE SELECCIÓN) -->
+    <section id="pantalla-aprender" class="pantalla-modulo">
+      <div class="modulo-header">
+        <div>
+          <h2>📘 Aprender las Tablas de Multiplicar</h2>
+          <p class="text-muted">Selecciona una tabla para explorar sus grupos, patrones y ganar estrellas:</p>
+        </div>
+        <button class="btn btn-outline" onclick="App.navegar('menu')">🏠 Volver al Menú</button>
+      </div>
+
+      <div class="grid-tablas-selector" id="grid-tablas-aprender">
+        <!-- Renderizado dinámicamente por App.renderListaTablasAprender() -->
+      </div>
+    </section>
+
+    <!-- 3. PANTALLA: DETALLE DE TABLA INTERACTIVA (ETAPA 3) -->
+    <section id="pantalla-tabla-detalle" class="pantalla-modulo">
+      <div class="detalle-tabla-cabecera">
+        <div>
+          <h2 id="detalle-tabla-titulo">Tabla del 6</h2>
+          <p id="detalle-tabla-apodo" class="text-muted">El Dado Mágico</p>
+          <div class="selector-rapido-tablas-nav" id="selector-rapido-tablas">
+            <!-- Botones rápidos del 2 al 10 -->
+          </div>
+        </div>
+        <div class="text-right">
+          <div id="detalle-tabla-estrellas" class="fs-xl">⭐⭐⭐</div>
+          <button class="btn btn-sm btn-outline mt-2" onclick="App.navegar('aprender')">← Lista de Tablas</button>
+        </div>
+      </div>
+
+      <!-- Pestañas de Aprendizaje -->
+      <div class="tabs-aprender-nav">
+        <button class="tab-btn-aprender activo" id="tab-btn-explorador" onclick="App.cambiarPestanaTabla('explorador')">
+          📦 1. Explorador Visual (Grupos &amp; Recta)
+        </button>
+        <button class="tab-btn-aprender" id="tab-btn-patrones" onclick="App.cambiarPestanaTabla('patrones')">
+          💡 2. Patrones &amp; Secretos Mágicos
+        </button>
+        <button class="tab-btn-aprender" id="tab-btn-practica" onclick="App.cambiarPestanaTabla('practica')">
+          ⭐ 3. Práctica Guiada con Pistas
+        </button>
+      </div>
+
+      <!-- Contenido Pestaña 1: Explorador Visual -->
+      <div class="tab-contenido-aprender activo" id="tab-cont-explorador">
+        <!-- Renderizado dinámicamente por App.renderExploradorVisual() -->
+      </div>
+
+      <!-- Contenido Pestaña 2: Patrones y Secretos -->
+      <div class="tab-contenido-aprender" id="tab-cont-patrones">
+        <!-- Renderizado dinámicamente por App.renderDetalleTabla() -->
+      </div>
+
+      <!-- Contenido Pestaña 3: Práctica Guiada -->
+      <div class="tab-contenido-aprender" id="tab-cont-practica">
+        <!-- Renderizado dinámicamente por App.renderPreguntaPractica() -->
+      </div>
+    </section>
+
+    <!-- 4. PANTALLA: JUEGOS Y DESAFÍOS (8 ACTIVIDADES NO MONÓTONAS) -->
+    <section id="pantalla-juegos" class="pantalla-modulo">
+      <div class="modulo-header">
+        <div>
+          <h2>🎮 Juegos y Desafíos Matemáticos</h2>
+          <p class="text-muted">Elige una de las 8 actividades interactivas para practicar sin aburrirte:</p>
+        </div>
+        <button class="btn btn-outline" onclick="App.navegar('menu')">🏠 Volver al Menú</button>
+      </div>
+
+      <!-- Selector de Juegos -->
+      <div class="grid-selector-juegos">
+        <div class="tarjeta-juego-menu anim-card" onclick="Juegos.iniciar('memoria')">
+          <div class="d-flex justify-between align-center mb-1">
+            <div class="juego-ico">🧠</div>
+            <span class="badge-estado badge-desbloqueado">⏱️ 1 Minuto</span>
+          </div>
+          <h4>1. Memoria Matemática</h4>
+          <p>Encuentra las 6 parejas de operaciones y resultados antes de que se agoten los 60 segundos.</p>
+          <span class="btn btn-sm btn-primario mt-auto">Jugar (60s) ➜</span>
+        </div>
+
+        <div class="tarjeta-juego-menu anim-card" onclick="Juegos.iniciar('atrapa')">
+          <div class="d-flex justify-between align-center mb-1">
+            <div class="juego-ico">🫧</div>
+            <span class="badge-estado badge-desbloqueado">⏱️ 1 Minuto</span>
+          </div>
+          <h4>2. Atrapa el Resultado</h4>
+          <p>Burbujas en movimiento. ¡Atrapa la mayor cantidad de respuestas correctas en 60 segundos!</p>
+          <span class="btn btn-sm btn-primario mt-auto">Jugar (60s) ➜</span>
+        </div>
+
+        <div class="tarjeta-juego-menu anim-card" onclick="Juegos.iniciar('construye')">
+          <div class="d-flex justify-between align-center mb-1">
+            <div class="juego-ico">🧱</div>
+            <span class="badge-estado badge-desbloqueado">⏱️ 1 Minuto</span>
+          </div>
+          <h4>3. Construye la Multiplicación</h4>
+          <p>Agrupa canastos y manzanas para modelar la mayor cantidad de multiplicaciones en 1 minuto.</p>
+          <span class="btn btn-sm btn-primario mt-auto">Jugar (60s) ➜</span>
+        </div>
+
+        <div class="tarjeta-juego-menu anim-card" onclick="Juegos.iniciar('quien')">
+          <div class="d-flex justify-between align-center mb-1">
+            <div class="juego-ico">🦉</div>
+            <span class="badge-estado badge-desbloqueado">⏱️ 1 Minuto</span>
+          </div>
+          <h4>4. ¿Quién tiene la respuesta?</h4>
+          <p>Descubre al personaje correcto con el cartel en tantas rondas como puedas en 60 segundos.</p>
+          <span class="btn btn-sm btn-primario mt-auto">Jugar (60s) ➜</span>
+        </div>
+
+        <div class="tarjeta-juego-menu anim-card" onclick="Juegos.iniciar('tiempo')">
+          <div class="d-flex justify-between align-center mb-1">
+            <div class="juego-ico">⏱️</div>
+            <span class="badge-estado badge-desbloqueado">⏱️ 1 Minuto</span>
+          </div>
+          <h4>5. Desafío Contra el Tiempo</h4>
+          <p>60 segundos de adrenalina pura. ¡Consigue rachas combo y supera tu récord personal!</p>
+          <span class="btn btn-sm btn-primario mt-auto">Jugar (60s) ➜</span>
+        </div>
+
+        <div class="tarjeta-juego-menu anim-card" onclick="Juegos.iniciar('arrastra')">
+          <div class="d-flex justify-between align-center mb-1">
+            <div class="juego-ico">🧩</div>
+            <span class="badge-estado badge-desbloqueado">⏱️ 1 Minuto</span>
+          </div>
+          <h4>6. Arrastra y Completa</h4>
+          <p>Ubica las 4 fichas numéricas en sus operaciones correctas antes de que termine el minuto.</p>
+          <span class="btn btn-sm btn-primario mt-auto">Jugar (60s) ➜</span>
+        </div>
+
+        <div class="tarjeta-juego-menu anim-card" onclick="Juegos.iniciar('detective')">
+          <div class="d-flex justify-between align-center mb-1">
+            <div class="juego-ico">🕵️</div>
+            <span class="badge-estado badge-desbloqueado">⏱️ 1 Minuto</span>
+          </div>
+          <h4>7. Detective Matemático</h4>
+          <p>Descifra el código secreto de la caja fuerte con 3 pistas antes de que suene la alarma a los 60s.</p>
+          <span class="btn btn-sm btn-primario mt-auto">Jugar (60s) ➜</span>
+        </div>
+
+        <div class="tarjeta-juego-menu anim-card" onclick="Juegos.iniciar('mision')">
+          <div class="d-flex justify-between align-center mb-1">
+            <div class="juego-ico">🗺️</div>
+            <span class="badge-estado badge-desbloqueado">⏱️ 1 Minuto</span>
+          </div>
+          <h4>8. Misiones por Nivel</h4>
+          <p>Supera los 5 desafíos consecutivos cuidando tus 3 vidas antes de agotar los 60 segundos.</p>
+          <span class="btn btn-sm btn-primario mt-auto">Jugar (60s) ➜</span>
+        </div>
+      </div>
+
+      <!-- Sub-Áreas de cada juego -->
+      <div id="area-juego-memoria" class="sub-area-juego"></div>
+      <div id="area-juego-atrapa" class="sub-area-juego"></div>
+      <div id="area-juego-construye" class="sub-area-juego"></div>
+      <div id="area-juego-quien" class="sub-area-juego"></div>
+      <div id="area-juego-tiempo" class="sub-area-juego"></div>
+      <div id="area-juego-arrastra" class="sub-area-juego"></div>
+      <div id="area-juego-detective" class="sub-area-juego"></div>
+      <div id="area-juego-mision" class="sub-area-juego"></div>
+    </section>
+
+    <!-- 5. PANTALLA: MI PROGRESO Y PUNTAJE -->
+    <section id="pantalla-progreso" class="pantalla-modulo">
+      <div class="modulo-header">
+        <div>
+          <h2>📊 Mi Progreso y Desempeño</h2>
+          <p class="text-muted">Observa tu nivel matemático, estrellas y registro de actividades:</p>
+        </div>
+        <button class="btn btn-outline" onclick="App.navegar('menu')">🏠 Volver al Menú</button>
+      </div>
+
+      <div class="grid-progreso-layout">
+        <!-- Columna Izquierda: Nivel y Tablas -->
+        <div class="card-progreso-box">
+          <div class="d-flex align-center gap-3 mb-4">
+            <span id="progreso-nivel-icon" class="fs-xxl">🌱</span>
+            <div>
+              <h3 id="progreso-nivel-txt">Nivel 1: Aprendiz de Números</h3>
+              <p class="text-muted">Puntaje total acumulado: <strong id="progreso-total-puntos">50 XP</strong></p>
+            </div>
+          </div>
+
+          <h4>Dominio Global: <span id="progreso-general-pct">0%</span></h4>
+          <div class="barra-progreso-grande my-2">
+            <div class="barra-progreso-fill" id="progreso-general-bar" style="width: 0%"></div>
+          </div>
+
+          <h4 class="mt-4 mb-2">Estrellas por cada Tabla (del 2 al 10):</h4>
+          <div class="progreso-grid-tablas-detalle" id="progreso-grid-tablas">
+            <!-- Renderizado dinámicamente -->
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Historial SIMCE y Consejos -->
+        <div class="card-progreso-box">
+          <h4>📝 Historial de Ensayos SIMCE</h4>
+          <p class="text-muted fs-sm mb-3">Tus últimos intentos en el ensayo oficial de 4° básico:</p>
+          <div id="progreso-historial-simce">
+            <!-- Renderizado dinámicamente -->
+          </div>
+
+          <div class="alerta alerta-info mt-4">
+            <h4>💡 Consejo del Profe:</h4>
+            <p>La mejor forma de recordar una tabla difícil (como la del 7 o la del 8) es buscar relaciones con tablas que ya dominas o descomponer los números.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. PANTALLA: LOGROS Y RECOMPENSAS -->
+    <section id="pantalla-logros" class="pantalla-modulo">
+      <div class="modulo-header">
+        <div>
+          <h2>🏆 Vitrina de Logros y Trofeos</h2>
+          <p class="text-muted">Medallas e insignias que puedes desbloquear durante tu aventura:</p>
+        </div>
+        <button class="btn btn-outline" onclick="App.navegar('menu')">🏠 Volver al Menú</button>
+      </div>
+
+      <div class="grid-logros" id="grid-logros-contenedor">
+        <!-- Renderizado dinámicamente por App.renderPantallaLogros() -->
+      </div>
+    </section>
+
+    <!-- 7. PANTALLA: ENSAYO MATEMÁTICO TIPO SIMCE (ETAPA 4) -->
+    <section id="pantalla-simce" class="pantalla-modulo">
+      <!-- El contenido completo es generado y controlado por js/simce.js -->
+    </section>
+
+  </main>
+
+  <!-- ==========================================
+       SCRIPTS MODULARES
+       ========================================== -->
+  <script src="js/sonidos.js"></script>
+  <script src="js/mensajes.js"></script>
+  <script src="js/datos.js"></script>
+  <script src="js/progreso.js"></script>
+  <script src="js/juegos.js"></script>
+  <script src="js/simce.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

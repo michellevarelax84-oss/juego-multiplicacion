@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIS TABLAS - Ingreso del Estudiante (4° Básico)</title>
+  <link rel="icon" type="image/svg+xml" href="sistema/imagen/logo.svg">
+  <style>
+    :root {
+      --color-primario: #4F46E5;
+      --color-primario-hover: #4338CA;
+      --color-secundario: #F59E0B;
+      --color-exito: #10B981;
+      --color-error: #EF4444;
+      --bg-grad: linear-gradient(135deg, #312E81 0%, #4F46E5 40%, #7C3AED 80%, #EC4899 100%);
+      --fuente: 'Segoe UI', system-ui, -apple-system, Roboto, 'Fredoka', 'Quicksand', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--fuente);
+      background: var(--bg-grad);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #1E293B;
+      overflow-x: hidden;
+    }
+
+    /* Contenedor Principal de la Tarjeta */
+    .login-container {
+      background: #FFFFFF;
+      width: 100%;
+      max-width: 580px;
+      border-radius: 28px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+      padding: 36px 32px;
+      text-align: center;
+      position: relative;
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Logo y Cabecera */
+    .login-logo {
+      max-width: 320px;
+      width: 100%;
+      height: auto;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 6px 12px rgba(79, 70, 229, 0.2));
+    }
+
+    .login-subtitulo {
+      font-size: 1.05rem;
+      color: #64748B;
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+
+    /* Grupo de Formulario */
+    .form-grupo {
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #1E293B;
+      margin-bottom: 8px;
+    }
+
+    .input-nombre {
+      width: 100%;
+      padding: 14px 18px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      border: 3px solid #E2E8F0;
+      border-radius: 16px;
+      outline: none;
+      transition: all 0.2s;
+      background: #F8FAFC;
+      color: #0F172A;
+    }
+
+    .input-nombre:focus {
+      border-color: var(--color-primario);
+      background: #FFFFFF;
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+    }
+
+    /* Selector de Avatares */
+    .avatares-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .avatar-opcion {
+      background: #F8FAFC;
+      border: 3px solid #E2E8F0;
+      border-radius: 18px;
+      padding: 12px 8px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .avatar-opcion:hover {
+      transform: translateY(-4px);
+      border-color: #CBD5E1;
+      background: #EFF6FF;
+    }
+
+    .avatar-opcion.seleccionado {
+      border-color: var(--color-secundario);
+      background: #FEF3C7;
+      box-shadow: 0 8px 16px rgba(245, 158, 11, 0.25);
+      transform: scale(1.04);
+    }
+
+    .avatar-img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .avatar-nombre {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #334155;
+    }
+
+    /* Mensaje de Validación de Error con Estilo y Animación */
+    .error-mensaje {
+      display: none;
+      background: #FEF2F2;
+      color: #991B1B;
+      padding: 16px 20px;
+      border-radius: 18px;
+      font-weight: 700;
+      font-size: 0.98rem;
+      margin-bottom: 24px;
+      border: 2px solid #FCA5A5;
+      text-align: left;
+      box-shadow: 0 10px 25px rgba(239, 68, 68, 0.15);
+      animation: popInAlert 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      align-items: center;
+      gap: 14px;
+    }
+
+    .error-ico {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .error-textos {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .anim-shake {
+      animation: shakeAlert 0.5s ease-in-out infinite;
+    }
+
+    @keyframes popInAlert {
+      from { transform: scale(0.85) translateY(-10px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    @keyframes shakeAlert {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px) rotate(-4deg); }
+      40%, 80% { transform: translateX(6px) rotate(4deg); }
+    }
+
+    /* Botón de Ingreso */
+    .btn-ingresar {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+      color: white;
+      font-size: 1.25rem;
+      font-weight: 900;
+      border: none;
+      border-radius: 18px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-ingresar:hover {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(16, 185, 129, 0.45);
+    }
+
+    .btn-ingresar:active {
+      transform: scale(0.98);
+    }
+
+    /* Decoraciones flotantes de fondo */
+    .deco-star {
+      position: absolute;
+      pointer-events: none;
+      font-size: 1.6rem;
+      animation: floatSlow 4s infinite alternate ease-in-out;
+    }
+    .deco-1 { top: -20px; left: -15px; }
+    .deco-2 { top: -15px; right: -15px; animation-delay: 1.5s; }
+    .deco-3 { bottom: -20px; right: 20px; animation-delay: 0.8s; }
+
+    @keyframes floatSlow {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-12px) rotate(15deg); }
+    }
+
+    /* Pie de página */
+    .login-pie {
+      margin-top: 24px;
+      font-size: 0.82rem;
+      color: #94A3B8;
+      font-weight: 600;
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 24px 18px;
+      }
+      .avatares-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .avatar-img {
+        width: 54px;
+        height: 54px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <!-- Estrellas decorativas -->
+    <span class="deco-star deco-1">⭐</span>
+    <span class="deco-star deco-2">✨</span>
+    <span class="deco-star deco-3">🚀</span>
+
+    <!-- Logo del Sistema -->
+    <img src="sistema/imagen/logo.svg" alt="MIS TABLAS Logo" class="login-logo">
+    <p class="login-subtitulo">Plataforma Educativa para Estudiantes de 4° Básico</p>
+
+    <!-- Mensaje de Validación de Error con Estilo y Animación -->
+    <div id="error-box" class="error-mensaje">
+      <div class="error-ico anim-shake">⚠️</div>
+      <div class="error-textos">
+        <strong>¡Ups, falta un detalle!</strong>
+        <span id="error-texto">Por favor ingresa tu nombre y selecciona un avatar.</span>
+      </div>
+    </div>
+
+    <!-- Formulario de Identificación -->
+    <form id="form-ingreso" onsubmit="event.preventDefault(); procesarIngreso();">
+      <!-- 1. Nombre del Estudiante -->
+      <div class="form-grupo">
+        <label for="input-nombre" class="form-label">👤 ¿Cuál es tu nombre?</label>
+        <input type="text"
+               id="input-nombre"
+               class="input-nombre"
+               placeholder="Ej: Matías, Valentina, Lucas..."
+               maxlength="25"
+               autocomplete="off"
+               required>
+      </div>
+
+      <!-- 2. Selección de Avatar -->
+      <div class="form-grupo">
+        <label class="form-label">🎨 Elige a tu Compañero de Aventura:</label>
+        <div class="avatares-grid">
+          <!-- Zorro Sabio -->
+          <div class="avatar-opcion seleccionado" data-avatar="zorro" onclick="seleccionarAvatar('zorro')">
+            <img src="sistema/imagen/avatar-zorro.svg" alt="Zorro Sabio" class="avatar-img">
+            <span class="avatar-nombre">Zorro Sabio</span>
+          </div>
+
+          <!-- Robot Matemático -->
+          <div class="avatar-opcion" data-avatar="robot" onclick="seleccionarAvatar('robot')">
+            <img src="sistema/imagen/avatar-robot.svg" alt="Robot Matemático" class="avatar-img">
+            <span class="avatar-nombre">Robot Pi</span>
+          </div>
+
+          <!-- Astronauta Estelar -->
+          <div class="avatar-opcion" data-avatar="astronauta" onclick="seleccionarAvatar('astronauta')">
+            <img src="sistema/imagen/avatar-astronauta.svg" alt="Astronauta" class="avatar-img">
+            <span class="avatar-nombre">Astronauta</span>
+          </div>
+
+          <!-- Maga de Números -->
+          <div class="avatar-opcion" data-avatar="maga" onclick="seleccionarAvatar('maga')">
+            <img src="sistema/imagen/avatar-maga.svg" alt="Maga de Números" class="avatar-img">
+            <span class="avatar-nombre">Maga Estrella</span>
+          </div>
+
+          <!-- Dino Matemático -->
+          <div class="avatar-opcion" data-avatar="dino" onclick="seleccionarAvatar('dino')">
+            <img src="sistema/imagen/avatar-dino.svg" alt="Dino Amigo" class="avatar-img">
+            <span class="avatar-nombre">Dino Amigo</span>
+          </div>
+
+          <!-- Superheroína Ágil -->
+          <div class="avatar-opcion" data-avatar="super" onclick="seleccionarAvatar('super')">
+            <img src="sistema/imagen/avatar-super.svg" alt="Superheroína" class="avatar-img">
+            <span class="avatar-nombre">Super Ágil</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón de Ingreso -->
+      <button type="submit" class="btn-ingresar">
+        🚀 ¡ENTRAR A JUGAR Y APRENDER!
+      </button>
+    </form>
+
+    <div class="login-pie">
+      Departamento de Informática • Aprendizaje de Tablas &amp; Ensayo SIMCE
+    </div>
+  </div>
+
+  <script>
+    let avatarSeleccionado = 'zorro';
+
+    // Cargar datos previos si existen
+    window.addEventListener('DOMContentLoaded', () => {
+      try {
+        const uRaw = localStorage.getItem('misTablas_usuario');
+        if (uRaw) {
+          const u = JSON.parse(uRaw);
+          if (u.nombre) {
+            document.getElementById('input-nombre').value = u.nombre;
+          }
+          if (u.avatar) {
+            seleccionarAvatar(u.avatar);
+          }
+        }
+      } catch (e) {
+        console.warn("Error leyendo sesión previa", e);
+      }
+    });
+
+    function seleccionarAvatar(avatarId) {
+      avatarSeleccionado = avatarId;
+      document.querySelectorAll('.avatar-opcion').forEach(el => {
+        el.classList.remove('seleccionado');
+      });
+      const elActivo = document.querySelector(`.avatar-opcion[data-avatar="${avatarId}"]`);
+      if (elActivo) {
+        elActivo.classList.add('seleccionado');
+      }
+    }
+
+    function procesarIngreso() {
+      const input = document.getElementById('input-nombre');
+      const errorBox = document.getElementById('error-box');
+      const errorTexto = document.getElementById('error-texto');
+      const nombre = input.value.trim();
+
+      // Validación 1: Nombre no vacío y mínimo 2 caracteres
+      if (!nombre || nombre.length < 2) {
+        errorTexto.textContent = "Por favor ingresa tu nombre (mínimo 2 letras) para comenzar.";
+        errorBox.style.display = 'flex';
+        input.focus();
+        return;
+      }
+
+      // Validación 2: Avatar seleccionado
+      if (!avatarSeleccionado) {
+        errorTexto.textContent = "Por favor selecciona un compañero avatar haciendo clic sobre él.";
+        errorBox.style.display = 'flex';
+        return;
+      }
+
+      // Ocultar error si todo está correcto
+      errorBox.style.display = 'none';
+
+      // Guardar en localStorage
+      const datosUsuario = {
+        nombre: nombre,
+        avatar: avatarSeleccionado,
+        fechaIngreso: new Date().toISOString()
+      };
+
+      try {
+        localStorage.setItem('misTablas_usuario', JSON.stringify(datosUsuario));
+      } catch (e) {
+        console.warn("No se pudo guardar en localStorage", e);
+      }
+
+      // Redirigir a Sistema/index.html (o sistema/index.html)
+      window.location.href = "sistema/index.html";
+    }
+  </script>
+</body>
+</html>
